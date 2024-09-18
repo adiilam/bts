@@ -10,13 +10,13 @@ Public Class frmRegister
         Dim email As String = txtEmail.Text
         Dim password As String = txtPassword.Text
 
-        ' Validasi input
+        ' Validasi 
         If String.IsNullOrEmpty(username) Or String.IsNullOrEmpty(email) Or String.IsNullOrEmpty(password) Then
             MessageBox.Show("Semua field harus diisi!")
             Return
         End If
 
-        ' Membuat objek dictionary untuk data yang akan dikirim
+        ' Create objek dictionary untuk data yang akan dikirim
         Dim userData As New Dictionary(Of String, String) From {
             {"username", username},
             {"email", email},
@@ -26,16 +26,16 @@ Public Class frmRegister
         ' Konversi objek menjadi JSON
         Dim jsonData As String = JsonConvert.SerializeObject(userData)
 
-        ' Mengirim data ke API menggunakan HttpClient
+        ' Send API HTTP
         Using client As New HttpClient()
             client.BaseAddress = New Uri("http://94.74.86.174:8080/")
             client.DefaultRequestHeaders.Accept.Clear()
             client.DefaultRequestHeaders.Accept.Add(New System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"))
 
-            ' Membuat request content dengan JSON
+            ' req JSON
             Dim content As New StringContent(jsonData, Encoding.UTF8, "application/json")
 
-            ' Kirim POST request ke API
+            ' Send POST API
             Dim response As HttpResponseMessage = Await client.PostAsync("api/register", content)
 
             ' Periksa apakah respons sukses
@@ -53,11 +53,6 @@ Public Class frmRegister
                 MessageBox.Show("Registrasi gagal: " & response.StatusCode.ToString())
             End If
 
-            'users.Add(userData)
-
-            'If response.IsSuccessStatusCode Then
-
-            'End If
         End Using
     End Sub
 

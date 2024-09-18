@@ -7,10 +7,6 @@ Public Class frmLogin
 
     Private users As List(Of Dictionary(Of String, String))
 
-    'Public Sub New(users As List(Of Dictionary(Of String, String)))
-    '    InitializeComponent()
-    '    Me.users = users
-    'End Sub
     Private Async Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
         Dim username As String = txtUsername.Text
         Dim password As String = txtPassword.Text
@@ -20,7 +16,6 @@ Public Class frmLogin
             {"password", password}
         }
 
-        ' Konversi objek menjadi JSON
         Dim jsonData As String = JsonConvert.SerializeObject(userData)
 
         ' Mengirim data ke API menggunakan HttpClient
@@ -32,7 +27,7 @@ Public Class frmLogin
             ' Membuat request content dengan JSON
             Dim content As New StringContent(jsonData, Encoding.UTF8, "application/json")
 
-            ' Kirim POST request ke API
+            ' Send POST
             Dim response As HttpResponseMessage = Await client.PostAsync("api/login", content)
 
             Dim responseString As String = Await response.Content.ReadAsStringAsync()

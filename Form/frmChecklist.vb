@@ -22,13 +22,13 @@ Public Class frmChecklist
             Dim responseString As String = Await response.Content.ReadAsStringAsync()
 
             If response.IsSuccessStatusCode Then
-                ' Uraikan JSON ke list produk
+
                 Dim responsData As ResponseData = JsonConvert.DeserializeObject(Of ResponseData)(responseString)
 
-                ' Tampilkan produk di DataGridView atau ListBox
+                ' Menampilkan json
                 If responsData.data IsNot Nothing Then
-                    dgvProducts.DataSource = responsData.data ' Misalnya menggunakan DataGridView
-                End If ' Misalnya menggunakan DataGridView
+                    dgvProducts.DataSource = responsData.data
+                End If
             Else
                 MessageBox.Show("Gagal memuat data produk: " & response.StatusCode.ToString())
             End If
